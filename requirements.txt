@@ -1,0 +1,7 @@
+pytest
+pytest-playwright
+pytest-xdist
+playwright
+flask
+allure-pytest
+Faker
