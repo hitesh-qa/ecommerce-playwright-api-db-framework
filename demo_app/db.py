@@ -48,3 +48,23 @@ def create_order(user_id, product_id, quantity, total_amount):
     conn.close()
     return order_id
 
+def get_order(order_id):
+    conn = get_connection()
+    row = conn.execute("SELECT * FROM orders WHERE id = ?", (order_id,)).fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def update_order_status(order_id, status):
+    conn = get_connection()
+    conn.execute("UPDATE orders SET status = ? WHERE id = ?", (status, order_id))
+    conn.commit()
+    conn.close()
+
+def create_payment(order_id, amount, payment_status="paid"):
+    conn = get_connection()
+    conn.execute(
+        "INSERT INTO payments (order_id, amount, payment_status) VALUES (?, ?, ?)",
+        (order_id, amount, payment_status)
+    )
+    conn.commit()
+    conn.close()
