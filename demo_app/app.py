@@ -27,3 +27,21 @@ def place_order():
 
     return redirect(url_for("order_confirmation", order_id=order_id))
 
+@app.route("/order_confirmation/<int:order_id>")
+def order_confirmation(order_id):
+    order = db.get_order(order_id)
+    return render_template("confirmation.html", order=order)
+
+#---------API endpoints (same DB, no browser needed)-------
+
+@app.route("/api/products", methods=["GET"])
+def get_all_products():
+    return jsonify(db.get_all_products())
+
+@app.route("/api/orders/<int:order_id>", methods=["GET"])
+def get_order(order_id):
+    order = db.get_order(order_id)
+    if not order:
+        return jsonify({"error": "Order not found"}), 404
+    return jsonify(order)
+
