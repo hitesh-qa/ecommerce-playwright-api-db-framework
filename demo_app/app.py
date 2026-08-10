@@ -45,3 +45,22 @@ def get_order(order_id):
         return jsonify({"error": "Order not found"}), 404
     return jsonify(order)
 
+@app.route("/api/orders", methods=["POST"])
+def api_create_order():
+    data = request.get_json()
+    product_id = data["product_id"]
+    quantity = data.get("quantity", 1)
+
+    product = db.get_product(product_id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+
+    total_amount = round(product["price"] * quantity, 2)
+    order_id = db.create_order(DEMO_USER_ID, product_id, quantity, total_amount)
+    db.update_order_status(order_id, "confirmed")
+    db.create_payment(order_id, total_amount, "paid")
+
+    return jsonify({"order_id": order_id}), 201
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000)
