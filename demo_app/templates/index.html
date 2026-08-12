@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Demo Shop</title></head>
+<body>
+    <h1>Products</h1>
+    {% for product in products %}
+    <div>
+        <p>{{ product.name }} - ${{ product.price }} (Stock: {{ product.stock_quantity }})</p>
+        <form action="/order" method="post">
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <input type="number" name="quantity" value="1" min="1">
+            <button type="submit">Buy</button>
+        </form>
+    </div>
+    {% endfor %}
+</body>
+</html>
