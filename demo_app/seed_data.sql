@@ -11,10 +11,6 @@ DELETE FROM sqlite_sequence Where name IN('users','products','orders','payments'
 INSERT INTO users (username, email, password) VALUES
 ('demo_user', 'demo_user@example.com', 'hashed_password_placeholder');
 
---seed one demo user (id=1 - app.py's DEMO_USER_ID always start fresh at 1
-INSERT INTO users (username, email, password) VALUES
-('demo_user', 'demo_user@example.com','hashed_password_placeholder');
-
 -- seed a few products for the storefront
 INSERT INTO products (name, price, stock_quantity) VALUES
 ('Wireless Mouse', 19.99, 50),
