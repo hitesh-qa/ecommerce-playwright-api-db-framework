@@ -63,4 +63,5 @@ def api_create_order():
     return jsonify({"order_id": order_id}), 201
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    debug_mug = os.environ.get("FLASK_DEBUG", "1") == "1"
+    app.run(debug=debug_mug, port=5000)
