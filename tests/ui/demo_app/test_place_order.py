@@ -13,3 +13,19 @@ PRODUCT_ID = 1         #Wirless Mouse, seeded at $19.99
 UNIT_PRICE = 19.99
 QUANTITY = 2
 EXPECTED_TOTAL = round(UNIT_PRICE * QUANTITY, 2)
+
+def test_place_order_ui_api_db_match(page):
+    #---------1. UI: place the order through the browser-------------
+    product_page = ProductPage(page)
+    product_page.goto()
+    product_page.buy_product(product_id=PRODUCT_ID, quantity=QUANTITY)
+
+    confirmation = ConfirmationPage(page)
+    ui_order_id = confirmation.get_order_id()
+    ui_status = confirmation.get_status()
+    ui_total = confirmation.get_total()
+
+    assert ui_status == "confirmed"
+    assert ui_total == EXPECTED_TOTAL
+
+#-----------2. API: verify the same order through the API ---------------
