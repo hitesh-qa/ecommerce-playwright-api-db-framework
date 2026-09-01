@@ -29,3 +29,13 @@ def test_place_order_ui_api_db_match(page):
     assert ui_total == EXPECTED_TOTAL
 
 #-----------2. API: verify the same order through the API ---------------
+response = page.request.get(f"http://127.0.0.1:5000/api/orders/{ui_order_id}")
+assert response.ok
+api_order = response.json()
+
+assert api_order["status"] == "confirmed"
+assert api_order["total_amount"] == EXPECTED_TOTAL
+assert api_order["quantity"] == QUANTITY
+
+#-------DB: verify the same order directly via SQL----------
+
