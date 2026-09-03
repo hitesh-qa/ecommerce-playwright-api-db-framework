@@ -37,5 +37,13 @@ assert api_order["status"] == "confirmed"
 assert api_order["total_amount"] == EXPECTED_TOTAL
 assert api_order["quantity"] == QUANTITY
 
-#-------DB: verify the same order directly via SQL----------
+#---------3. DB: verify the same order directly via SQL----------
+conn = sqlite3.connect(DB_PATH)
+order_row = conn.execute(
+    "SELECT status, total_amount, quantity FROM orders WHERE id = ? ", (ui_order_id,)
+).fetchone()
+payment_row = conn.execute(
+    "SELECT payment_status, amount FROM payments WHERE order_id = ?", (ui_order_id,)
+).fetchone()
+conn.close()
 
