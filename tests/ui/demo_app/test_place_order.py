@@ -47,3 +47,13 @@ payment_row = conn.execute(
 ).fetchone()
 conn.close()
 
+assert order_row is not None, "Order not found in database"
+db_status, db_total, db_quantity = order_row
+assert db_status == "confirmed"
+assert db_total == EXPECTED_TOTAL
+assert db_quantity == QUANTITY
+
+assert payment_row is not None, "Payment row not found in database"
+payment_status, payment_amount = payment_row
+assert payment_status =="paid"
+assert payment_amount == EXPECTED_TOTAL
