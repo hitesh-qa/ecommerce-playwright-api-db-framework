@@ -1,3 +1,4 @@
+import pytest
 import sqlite3
 import os
 
@@ -12,6 +13,12 @@ UNIT_PRICE = 19.99
 QUANTITY = 2
 EXPECTED_TOTAL = round(UNIT_PRICE * QUANTITY, 2)
 
+
+
+
+@pytest.mark.regression
+@pytest.mark.api
+@pytest.mark.db
 
 def test_place_order_ui_api_db_match(page):
     # ---- 1. UI: place the order through the browser ----
