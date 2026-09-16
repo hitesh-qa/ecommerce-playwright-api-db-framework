@@ -52,6 +52,9 @@ def api_create_order():
     product_id = data["product_id"]
     quantity = data.get("quantity", 1)
 
+    if not isinstance(quantity, int) or quantity < 1:
+        return jsonify({"error": "Quantity must be at least 1"}), 400
+
     product = db.get_product(product_id)
     if not product:
         return jsonify({"error": "Product not found"}), 404
