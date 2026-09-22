@@ -1,6 +1,6 @@
 import pytest
 
-BASE_URL = "http://127.0.0.1:5000/"
+BASE_URL = "http:/127.0.0.1:5000/"
 
 @pytest.mark.regression
 @pytest.mark.api
