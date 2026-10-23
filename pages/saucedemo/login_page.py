@@ -1,4 +1,7 @@
+import pytest
+
 from pages.saucedemo.base_page import BasePage
+from pages.saucedemo.home_page import HomePage
 from test_data.data import BASE_URL
 
 
@@ -9,6 +12,10 @@ class LoginPage(BasePage):
     PASSWORD_INPUT = "#password"
     LOGIN_BUTTON = "#login-button"
     ERROR_MESSAGE = "[data-test='error']"
+
+@pytest.fixture(scope="function")
+    def home_page(page):
+        return HomePage(page)
 
     def open(self):
         self.navigate(BASE_URL)
@@ -35,3 +42,4 @@ class LoginPage(BasePage):
 
     def is_login_successful(self):
         return "inventory" in self.get_current_url()
+
