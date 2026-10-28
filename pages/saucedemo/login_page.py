@@ -4,6 +4,9 @@ from pages.saucedemo.base_page import BasePage
 from pages.saucedemo.home_page import HomePage
 from test_data.data import BASE_URL
 
+@pytest.fixture(scope="function")
+def home_page(page):
+    return HomePage(page)
 
 class LoginPage(BasePage):
     """Page object for the Login page."""
@@ -13,9 +16,7 @@ class LoginPage(BasePage):
     LOGIN_BUTTON = "#login-button"
     ERROR_MESSAGE = "[data-test='error']"
 
-@pytest.fixture(scope="function")
-    def home_page(page):
-        return HomePage(page)
+
 
     def open(self):
         self.navigate(BASE_URL)
