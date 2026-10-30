@@ -1,0 +1,1 @@
+from pages.saucedemo.base_page import BasePage
