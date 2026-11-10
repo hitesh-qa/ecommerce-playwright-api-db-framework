@@ -39,6 +39,7 @@ class HomePage(BasePage):
 
     def go_to_cart(self):
         self.click(self.CART_ICON)
+        self.page.wait_for_url("**/cart.html")
 
     def sort_products(self, option: str):
         self.page.locator(self.SORT_DROPDOWN).select_option(option)

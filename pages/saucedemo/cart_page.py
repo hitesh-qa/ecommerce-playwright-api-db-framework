@@ -39,6 +39,7 @@ class CartPage(BasePage):
     def continue_shopping(self):
         """Click Continue Shopping button."""
         self.click(self.CONTINUE_SHOPPING)
+        self.page.wait_for_url("**/inventory.html")
 
     def proceed_to_checkout(self):
         """Click Checkout button."""
