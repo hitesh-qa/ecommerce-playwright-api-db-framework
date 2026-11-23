@@ -11,8 +11,9 @@ DEMO_APP_DIR = os.path.join(BASE_DIR, "demo_app")
 
 def reset_database():
     conn = sqlite3.connect(os.path.join(DEMO_APP_DIR, "app.db"))
-    with open(os.path.join(DEMO_APP_DIR, "seed_data.sql")) as f:
-        conn.executescript(f.read())
+    for sql_file in ("schema.sql", "seed_data.sql"):
+        with open(os.path.join(DEMO_APP_DIR, sql_file)) as f:
+            conn.executescript(f.read())
     conn.commit()
     conn.close()
 
