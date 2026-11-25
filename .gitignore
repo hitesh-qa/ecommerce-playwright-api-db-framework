@@ -16,3 +16,6 @@ logs/*.log
 reports/*
 allure-results/
 allure-report/
+
+# Local database (rebuilt from schema.sql + seed_data.sql on every run)
+demo_app/app.db
