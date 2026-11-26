@@ -1,3 +1,4 @@
+import os
 import pytest
 from pages.saucedemo.login_page import LoginPage
 from test_data.data import BASE_URL
@@ -21,6 +22,7 @@ def pytest_runtest_makereport(item, call):
     if report.when == "call" and report.failed:
         page = item.funcargs.get("page")
         if page:
+            os.makedirs("screenshots", exist_ok=True)
             screenshot_path = f"screenshots/{item.name}.png"
             page.screenshot(path=screenshot_path)
 
